@@ -26,16 +26,16 @@ void SampleSet::loadData(const string& filename)
         //values to go into a determinand array
         string units = row["determinand.unit.label"].get<string>();
         Determinand temp2(det, units);
-        int group_id = temp2.calcGroup(det, full_name);
-        temp2.setGroup(group_id);
 
         //uncomment to only track groups
         //if (group_id != -1) {
-        temp2.setSafeLevel(temp2.calcSafe(group_id));
         //if not in the array already adds new entry
         //else increments count
         int array_pos = deterSearch(det);
         if (array_pos == -1) {
+            int group_id = temp2.calcGroup(det, full_name);
+            temp2.setGroup(group_id);
+            temp2.setSafeLevel(temp2.calcSafe(group_id));
             deter_data.push_back(temp2);
         } else {
             deter_data[array_pos].incrementCount();
@@ -120,6 +120,17 @@ SampleSet SampleSet::filterGroup(int ID) {
             if (sampleAt(i).getDeterminand() == result_vector.determinandAt(j).getName()) {
                 result_vector.addSample(sampleAt(i));
             }
+        }
+    }
+    return result_vector;
+}
+    
+// return all samples in a certain datetime
+SampleSet SampleSet::filterDate(const string& time) {
+    SampleSet result_vector;
+    for (int i=0; i<sampleSize(); i++) {
+        if (sampleAt(i).getTime() == time) {
+            result_vector.addSample(sampleAt(i));
         }
     }
     return result_vector;

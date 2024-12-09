@@ -14,7 +14,7 @@ int Determinand::calcGroup(const string& name, const string& fullname) {
     //litter group id 3
     //common pollutatns group id 4
     int group_id = -1;
-    string fluoro_list[] = {"Fluoro","fluoro"};
+    string fluoro_list[] = {"Fluoro","fluoro",""};
     string pops_list[] = {"PBA",
     "Endosulphan",
     "PBDE",
@@ -67,10 +67,10 @@ double Determinand::calcSafe(int group_id) {
     double safe = 0;
     //placeholder array
     double level_arr[4][2] = {
-        {1, 4.5},
-        {2, 5.2},
-        {3, 3.2},
-        {4, 5.2}
+        {1, 0.01},
+        {2, 0.2},
+        {3, 1},
+        {4, 30}
     };
     //iterates through array to find matching group id + returns the corresponding safe level
     for (int i=0; i<sizeof(level_arr); i++) {

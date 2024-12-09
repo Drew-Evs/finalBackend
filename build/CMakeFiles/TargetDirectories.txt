@@ -1,0 +1,3 @@
+/workspaces/yourAllBad/build/CMakeFiles/edit_cache.dir
+/workspaces/yourAllBad/build/CMakeFiles/rebuild_cache.dir
+/workspaces/yourAllBad/build/CMakeFiles/testRead.dir

@@ -6,33 +6,27 @@ using namespace std;
 int main (int argc, char* argv[]) {
   if (argc != 2) {
     cout << "Usage: <filename>" << endl;
+    exit(1);
   }
 
   //creates an instance of 
-  SampleSet test_set(argv[1]);
-  //returns sizes of the dataset
-  cout << "Number Samples: " << test_set.sampleSize() << endl; 
-  cout << "Number Determinands: " << test_set.deterSize() << endl; 
+  SampleSet data(argv[1]);
 
-  SampleSet filtered = test_set.filterGroup(1);
-  int test_id = test_set.deterSearch("4-Phenoxybutyric acid :- {PBA}");
-  cout << "Litter Level: " << filtered.getAvg() << endl;
-  cout << test_set.sampleAt(31951).getDeterminand() << endl;
-  cout << test_set.sampleAt(31951).getFull() << endl;
-  cout << "Test ID:" << test_id << endl;
+  SampleSet filteredName = data.filterName("Nitrogen");
+  cout << filteredName.sampleAt(0).getDeterminand();
+  std::vector<SampleSet> groups;
+  groups.push_back(data.filterGroup(1));
+  groups.push_back(data.filterGroup(2));
+  groups.push_back(data.filterGroup(3));
+  groups.push_back(data.filterGroup(4));
 
-  //outputs data from an individual sample
-  Sample sample1 = test_set.sampleAt(0);
-  cout << "Sample info at pos 1: " << sample1.getDeterminand() 
-  << " " << sample1.getLevel() << " " << sample1.getLocation() << endl;
-  SampleSet count;
-
-  //calculates the common pollutants
-  for (int i=0; i<test_set.deterSize(); i++) {
-    if (test_set.determinandAt(i).getNumberEntries() >= 1000){
-      count.addDeterminand(test_set.determinandAt(i));
-    }
-  }
-
-  cout << "Number of common determinands: " << count.deterSize() << endl;
+  cout << "Fluorates eter count " << groups[0].deterSize() << " sample count " << groups[0].sampleSize() << 
+  " avg " << groups[0].getAvg() << endl;
+  cout << "PBAs deter count " << groups[1].deterSize() << " sample count " << groups[1].sampleSize() << 
+  " avg " << groups[1].getAvg() << endl;
+  cout << "Physical deter count " << groups[2].deterSize() << " sample count " << groups[2].sampleSize() << 
+  " avg " << groups[2].getAvg() << endl;
+  cout << "Common deter count " << groups[3].deterSize() << " sample count " << groups[3].sampleSize() << 
+  " avg " << groups[3].getAvg() << endl;
 }
+
