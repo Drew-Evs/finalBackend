@@ -30,6 +30,7 @@ class SampleSet
         SampleSet filterTime(const std::string&);
         SampleSet filterGroup(int);
         SampleSet filterDate(const std::string&);
+        SampleSet filterFull(const std::string&);
 
     
     private:

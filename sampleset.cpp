@@ -135,3 +135,17 @@ SampleSet SampleSet::filterDate(const string& time) {
     }
     return result_vector;
 }
+
+//searches by full name
+SampleSet SampleSet::filterFull(const string& name) {
+    SampleSet result_vector;
+    vector<string> full_names;
+    for (int i=0; i<sampleSize(); i++) {
+        if(sampleAt(i).getFull().find(name) != string::npos) {
+            result_vector.addSample(sampleAt(i));
+            int determinand_add = deterSearch(sampleAt(i).getDeterminand());
+            result_vector.addDeterminand(determinandAt(determinand_add));
+        }
+    }
+    return result_vector;
+}
